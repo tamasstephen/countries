@@ -6,7 +6,7 @@ export interface Country {
     common: string;
     official: string;
   };
-  capital: string[];
+  capital: string;
   subregion: string;
   currencies: { [key: string]: { name: string; symbol: string } };
   flags: { alt: string; svg: string; png: string };
