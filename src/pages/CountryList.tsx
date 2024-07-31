@@ -57,6 +57,7 @@ export const CountryList = () => {
           justifyContent="space-between"
           direction="row"
           alignItems="center"
+          sx={{ marginBottom: "2rem" }}
         >
           <AutocompleteField
             countries={countries.map((country) => country.name.official)}

@@ -82,6 +82,14 @@ export const selectRegions = createSelector(
     ...new Set(["All", ...countries.map((country: Country) => country.region)]),
   ]
 );
+export const selectCountryPageData = (
+  state: RootState,
+  selectedCountry: string
+) =>
+  state.countries.countries.find(
+    (country) =>
+      country.name.official.toLowerCase() === selectedCountry.toLowerCase()
+  );
 export const selectSelectedRegion = (state: RootState) =>
   state.countries.selectedRegion;
 

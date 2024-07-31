@@ -5,6 +5,7 @@ import { Country } from "../types/country";
 import { FC } from "react";
 import { CountryCardDetails } from "./CountryCardDetails";
 import { StyledCountryCard } from "./StyledCountryCard";
+import { useNavigate } from "react-router-dom";
 
 interface CountryProps {
   country: Country;
@@ -13,8 +14,10 @@ interface CountryProps {
 export const CountryCard: FC<CountryProps> = ({
   country: { flags, name, population, capital, region },
 }) => {
+  const navigate = useNavigate();
+  const handleClick = () => navigate(`/${name.official}`);
   return (
-    <StyledCountryCard>
+    <StyledCountryCard onClick={handleClick}>
       <CardMedia
         sx={{ width: "100%", aspectRatio: 3 / 2 }}
         image={flags.svg}

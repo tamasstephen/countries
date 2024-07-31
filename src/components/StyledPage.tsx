@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 
 export const StyledPageWrapper = styled(Box)({
-  padding: "1rem",
+  padding: "2rem",
 });
 
 export const StyledCardDataTitle = styled("span")({

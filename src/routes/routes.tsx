@@ -7,6 +7,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { selectTheme } from "../app/features/themeSlice";
 import { useAppSelector } from "../app/hooks";
 import CssBaseline from "@mui/material/CssBaseline";
+import { CountryPage } from "../pages/CountryPage";
 
 const routes = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const routes = createBrowserRouter([
       {
         path: "/",
         element: <CountryList />,
+      },
+      {
+        path: "/:country",
+        element: <CountryPage />,
       },
     ],
   },
