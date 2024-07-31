@@ -10,9 +10,12 @@ import {
   fetchCountries,
   selectCountrySelector,
   selectCountry,
+  selectRegions,
+  selectSelectedRegion,
+  selectRegion,
 } from "../app/features/countrySlice";
 import { Country } from "../types/country";
-import { Stack } from "@mui/material";
+import { FormControl, MenuItem, Stack, TextField } from "@mui/material";
 import { AutocompleteField } from "../components/AutocompleteField";
 
 export const CountryList = () => {
@@ -21,6 +24,8 @@ export const CountryList = () => {
   const selectedCountry = useAppSelector(selectCountrySelector);
   const loading = useAppSelector(selectIsLoading);
   const error = useAppSelector(selectIsError);
+  const regions = useAppSelector(selectRegions);
+  const selectedRegion = useAppSelector(selectSelectedRegion);
 
   const selectedCountries = useMemo(() => {
     if (selectedCountry) {
@@ -48,11 +53,31 @@ export const CountryList = () => {
   if (selectedCountries.length) {
     return (
       <StyledPageWrapper>
-        <Stack justifyContent={"space-between"}>
+        <Stack
+          justifyContent="space-between"
+          direction="row"
+          alignItems="center"
+        >
           <AutocompleteField
             countries={countries.map((country) => country.name.official)}
             onSubmit={(value: string | null) => dispatch(selectCountry(value))}
           />
+          <FormControl sx={{ m: 1, minWidth: 200 }}>
+            <TextField
+              id="region-label"
+              value={selectedRegion}
+              label="Filter by regions"
+              onChange={(event) => dispatch(selectRegion(event.target.value))}
+              select
+            >
+              {regions.length &&
+                regions.map((region, idx) => (
+                  <MenuItem key={idx} value={region}>
+                    {region}
+                  </MenuItem>
+                ))}
+            </TextField>
+          </FormControl>
         </Stack>
         <Grid container spacing={4}>
           {countries.length > 0 &&

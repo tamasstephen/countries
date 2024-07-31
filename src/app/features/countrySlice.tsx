@@ -1,4 +1,9 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk,
+  PayloadAction,
+  createSelector,
+} from "@reduxjs/toolkit";
 import { Country } from "../../types/country";
 import axios from "axios";
 import { RootState } from "../store";
@@ -8,6 +13,7 @@ export interface CountryState {
   loading: boolean;
   error: boolean;
   selectedCountry: string | null;
+  selectedRegion: string;
 }
 
 const initialState: CountryState = {
@@ -15,6 +21,7 @@ const initialState: CountryState = {
   loading: false,
   error: false,
   selectedCountry: null,
+  selectedRegion: "",
 };
 
 export const countrySlice = createSlice({
@@ -23,6 +30,9 @@ export const countrySlice = createSlice({
   reducers: {
     selectCountry: (state, action) => {
       state.selectedCountry = action.payload;
+    },
+    selectRegion: (state, action: PayloadAction<string>) => {
+      state.selectedRegion = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -52,17 +62,27 @@ export const fetchCountries = createAsyncThunk<Country[]>(
   }
 );
 
-export const { selectCountry } = countrySlice.actions;
+export const { selectCountry, selectRegion } = countrySlice.actions;
 
-export const selectCountries = (state: RootState) => state.countries.countries;
+export const selectCountries = (state: RootState) =>
+  !state.countries.selectedRegion || state.countries.selectedRegion === "All"
+    ? state.countries.countries
+    : state.countries.countries.filter(
+        (country) => country.region === state.countries.selectedRegion
+      );
+export const selectAllCountries = (state: RootState) =>
+  state.countries.countries;
 export const selectIsLoading = (state: RootState) => state.countries.loading;
 export const selectIsError = (state: RootState) => state.countries.error;
 export const selectCountrySelector = (state: RootState) =>
   state.countries.selectedCountry;
-export const selectRegions = (state: RootState) => [
-  ...new Set(
-    state.countries.countries.map((country: Country) => country.region)
-  ),
-];
+export const selectRegions = createSelector(
+  [selectAllCountries],
+  (countries) => [
+    ...new Set(["All", ...countries.map((country: Country) => country.region)]),
+  ]
+);
+export const selectSelectedRegion = (state: RootState) =>
+  state.countries.selectedRegion;
 
 export default countrySlice.reducer;
