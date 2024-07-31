@@ -68,7 +68,7 @@ export const selectCountries = (state: RootState) =>
   !state.countries.selectedRegion || state.countries.selectedRegion === "All"
     ? state.countries.countries
     : state.countries.countries.filter(
-        (country) => country.region === state.countries.selectedRegion
+        (country: Country) => country.region === state.countries.selectedRegion
       );
 export const selectAllCountries = (state: RootState) =>
   state.countries.countries;

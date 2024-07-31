@@ -1,6 +1,7 @@
+import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 
-export const StyledPageWrapper = styled("div")({
+export const StyledPageWrapper = styled(Box)({
   padding: "1rem",
 });
 

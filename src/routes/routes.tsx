@@ -3,6 +3,10 @@ import { createBrowserRouter } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { CountryList } from "../pages/CountryList";
 import { RouterProvider } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { selectTheme } from "../app/features/themeSlice";
+import { useAppSelector } from "../app/hooks";
+import CssBaseline from "@mui/material/CssBaseline";
 
 const routes = createBrowserRouter([
   {
@@ -18,5 +22,18 @@ const routes = createBrowserRouter([
 ]);
 
 export const AppRouter = () => {
-  return <RouterProvider router={routes} />;
+  const selectedTheme = useAppSelector(selectTheme);
+
+  const theme = createTheme({
+    palette: {
+      mode: selectedTheme,
+    },
+  });
+
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <RouterProvider router={routes} />
+    </ThemeProvider>
+  );
 };
