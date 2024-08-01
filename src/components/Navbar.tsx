@@ -1,11 +1,12 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../app/hooks";
 import { toggleTheme } from "../app/features/themeSlice";
 import { Box, Button, Stack, Typography } from "@mui/material";
 
 export const Navbar = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   return (
     <Box>
@@ -22,7 +23,14 @@ export const Navbar = () => {
       >
         <Typography
           variant="h1"
-          sx={{ fontSize: { xs: "1rem", md: "1.5rem" }, fontWeight: 700 }}
+          sx={{
+            fontSize: { xs: "1rem", md: "1.5rem" },
+            fontWeight: 700,
+            cursor: "pointer",
+          }}
+          onClick={() => navigate("/")}
+          role="link"
+          aria-label="Home"
         >
           Where in the World?
         </Typography>

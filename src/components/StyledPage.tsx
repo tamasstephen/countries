@@ -10,3 +10,8 @@ export const StyledCardDataTitle = styled("span")({
   paddingRight: ".5rem",
   display: "inline-block",
 });
+
+export const StyledFlag = styled("img")({
+  width: "100%",
+  aspectRatio: 3 / 2,
+});
