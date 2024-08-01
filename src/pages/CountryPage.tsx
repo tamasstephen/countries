@@ -64,8 +64,21 @@ export const CountryPage = () => {
 
   return (
     <StyledPageWrapper>
-      <Stack>
-        <Box>
+      <Box
+        sx={{
+          display: {
+            md: "flex",
+            justifyContent: "center",
+          },
+          marginTop: { lg: "4rem" },
+        }}
+      >
+        <Box
+          sx={{
+            width: { md: "40%", lg: "35%" },
+            paddingRight: { md: "2rem", lg: "6rem" },
+          }}
+        >
           <StyledFlag src={selectedCountry.flags.svg} />
         </Box>
         <Stack>
@@ -75,20 +88,29 @@ export const CountryPage = () => {
               fontSize: { xs: "1.5rem" },
               fontWeight: 700,
               lineHeight: "100%",
-              paddingTop: "2rem",
+              paddingTop: { xs: "2rem", lg: 0 },
             }}
           >
             {selectedCountry.name.official}
           </Typography>
           <Stack>
-            <Stack>
-              <Stack sx={{ paddingTop: "1rem", paddingBottom: "2rem" }}>
+            <Box
+              sx={{
+                paddingTop: "1rem",
+                display: { lg: "grid" },
+                gridTemplateColumns: { lg: "repeat(2, 1fr)" },
+                gap: "1rem",
+              }}
+            >
+              <Stack
+                sx={{ paddingBottom: "2rem", paddingRight: { lg: "1rem" } }}
+              >
                 <CountryPageDetails details={countryDetails.firstColumn} />
               </Stack>
               <Stack>
                 <CountryPageDetails details={countryDetails.secondColumn} />
               </Stack>
-            </Stack>
+            </Box>
             {borderCountries.length && (
               <Box>
                 <Typography sx={{ fontWeight: 700, paddingY: "1.5rem" }}>
@@ -114,6 +136,7 @@ export const CountryPage = () => {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
+                        border: "1px solid #E5E4E2",
                       }}
                     >
                       <Typography sx={{ lineHeight: "130%" }}>
@@ -126,7 +149,7 @@ export const CountryPage = () => {
             )}
           </Stack>
         </Stack>
-      </Stack>
+      </Box>
     </StyledPageWrapper>
   );
 };
