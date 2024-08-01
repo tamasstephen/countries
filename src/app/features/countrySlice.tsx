@@ -92,5 +92,13 @@ export const selectCountryPageData = (
   );
 export const selectSelectedRegion = (state: RootState) =>
   state.countries.selectedRegion;
+export const selectCountriesByCCA3 = (
+  state: RootState,
+  countryCodes: string[]
+) => {
+  return countryCodes.map((code) => {
+    return state.countries.countries.find((country) => country.cca3 === code);
+  });
+};
 
 export default countrySlice.reducer;

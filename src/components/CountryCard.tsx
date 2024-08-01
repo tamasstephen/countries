@@ -16,6 +16,7 @@ export const CountryCard: FC<CountryProps> = ({
 }) => {
   const navigate = useNavigate();
   const handleClick = () => navigate(`/${name.official}`);
+
   return (
     <StyledCountryCard onClick={handleClick}>
       <CardMedia
